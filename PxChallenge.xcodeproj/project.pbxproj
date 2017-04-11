@@ -13,6 +13,9 @@
 		5D28C7421E9C4E0700FAEDCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D28C7401E9C4E0700FAEDCB /* Main.storyboard */; };
 		5D28C7441E9C4E0700FAEDCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D28C7431E9C4E0700FAEDCB /* Assets.xcassets */; };
 		5D28C7471E9C4E0700FAEDCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D28C7451E9C4E0700FAEDCB /* LaunchScreen.storyboard */; };
+		5D28C7571E9C62DA00FAEDCB /* PxAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D28C7561E9C62DA00FAEDCB /* PxAPI.swift */; };
+		5D28C75A1E9C62E000FAEDCB /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D28C7581E9C62E000FAEDCB /* Photo.swift */; };
+		5D28C75B1E9C62E000FAEDCB /* PopularPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D28C7591E9C62E000FAEDCB /* PopularPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +28,9 @@
 		5D28C7431E9C4E0700FAEDCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D28C7461E9C4E0700FAEDCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D28C7481E9C4E0700FAEDCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D28C7561E9C62DA00FAEDCB /* PxAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PxAPI.swift; sourceTree = "<group>"; };
+		5D28C7581E9C62E000FAEDCB /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Photo.swift; path = ObjectMaps/Photo.swift; sourceTree = "<group>"; };
+		5D28C7591E9C62E000FAEDCB /* PopularPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopularPage.swift; path = ObjectMaps/PopularPage.swift; sourceTree = "<group>"; };
 		EC1942EEDC790CCDFBC55674 /* Pods-PxChallenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PxChallenge.release.xcconfig"; path = "Pods/Target Support Files/Pods-PxChallenge/Pods-PxChallenge.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,14 +75,25 @@
 		5D28C73B1E9C4E0700FAEDCB /* PxChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				5D28C7551E9C62D000FAEDCB /* ObjectMaps */,
 				5D28C73C1E9C4E0700FAEDCB /* AppDelegate.swift */,
 				5D28C73E1E9C4E0700FAEDCB /* ViewController.swift */,
 				5D28C7401E9C4E0700FAEDCB /* Main.storyboard */,
+				5D28C7561E9C62DA00FAEDCB /* PxAPI.swift */,
 				5D28C7431E9C4E0700FAEDCB /* Assets.xcassets */,
 				5D28C7451E9C4E0700FAEDCB /* LaunchScreen.storyboard */,
 				5D28C7481E9C4E0700FAEDCB /* Info.plist */,
 			);
 			path = PxChallenge;
+			sourceTree = "<group>";
+		};
+		5D28C7551E9C62D000FAEDCB /* ObjectMaps */ = {
+			isa = PBXGroup;
+			children = (
+				5D28C7581E9C62E000FAEDCB /* Photo.swift */,
+				5D28C7591E9C62E000FAEDCB /* PopularPage.swift */,
+			);
+			name = ObjectMaps;
 			sourceTree = "<group>";
 		};
 		FCCA6DC4DE288A736B6CD135 /* Pods */ = {
@@ -212,7 +229,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D28C75A1E9C62E000FAEDCB /* Photo.swift in Sources */,
+				5D28C75B1E9C62E000FAEDCB /* PopularPage.swift in Sources */,
 				5D28C73F1E9C4E0700FAEDCB /* ViewController.swift in Sources */,
+				5D28C7571E9C62DA00FAEDCB /* PxAPI.swift in Sources */,
 				5D28C73D1E9C4E0700FAEDCB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,6 +399,7 @@
 				5D28C74D1E9C4E0700FAEDCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -7,12 +7,29 @@
 //
 
 import UIKit
+import RxSwift
+import Moya_ObjectMapper
 
 class ViewController: UIViewController {
 
+    var disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        pxProvider.request(.popularPhotos())
+            .mapObject(PopularPage.self)
+            .subscribe { event in
+                switch event {
+                case .next(let page):
+                    print(page)
+                case .error(let error):
+                    print(error)
+                default:
+                    break
+                }
+        }.disposed(by: disposeBag)
+        
     }
 
     override func didReceiveMemoryWarning() {
