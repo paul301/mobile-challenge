@@ -1,0 +1,6 @@
+framework module Pods_PxChallenge {
+  umbrella header "Pods-PxChallenge-umbrella.h"
+
+  export *
+  module * { export * }
+}
