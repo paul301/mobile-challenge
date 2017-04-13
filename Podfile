@@ -9,7 +9,7 @@ target 'PxChallenge' do
   pod 'Moya/RxSwift'
   pod 'Moya-ObjectMapper/RxSwift'
   pod 'SDWebImage', '~>3.8'
-  pod 'NYTPhotoViewer', '~> 1.1.0'
+  pod 'Hero', '~> 0.3'
 
 end
 
