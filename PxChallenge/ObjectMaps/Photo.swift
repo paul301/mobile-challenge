@@ -13,15 +13,20 @@ struct Photo: Mappable {
     
     var id: Int!
     var name: String!
-    var imageUrl: String!
+    var images: [Image]!
+    var width: Int!
+    var height: Int!
+    
     
     // MARK: JSON
     init?(map: Map) { }
     
     mutating func mapping(map: Map) {
-        id            <- map["id"]
-        name          <- map["name"]
-        imageUrl      <- map["image_url"]
+        id          <- map["id"]
+        name        <- map["name"]
+        images      <- map["images"]
+        width       <- map["width"]
+        height      <- map["height"]
     }
     
 }

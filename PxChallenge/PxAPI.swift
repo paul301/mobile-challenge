@@ -36,7 +36,8 @@ extension FiveHundredPx: TargetType {
         switch self {
         case .popularPhotos():
             return ["consumer_key": "w9pJJi1BUapVhDWXZz8PXVF2ynjKEbyfy38waDGM",
-                    "exclude":"nude"]
+                    "exclude":"nude",
+                    "image_size":"6,21"]
         }
     }
     
