@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0080192A1EA661E5004FCB17 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008019291EA661E5004FCB17 /* ImageHelper.swift */; };
 		2038181495163290FB7D2DD1 /* Pods_PxChallenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15716A5DC739359CECD20163 /* Pods_PxChallenge.framework */; };
 		5D28C73D1E9C4E0700FAEDCB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D28C73C1E9C4E0700FAEDCB /* AppDelegate.swift */; };
 		5D28C7441E9C4E0700FAEDCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D28C7431E9C4E0700FAEDCB /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		008019291EA661E5004FCB17 /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageHelper.swift; path = Utils/ImageHelper.swift; sourceTree = "<group>"; };
 		15716A5DC739359CECD20163 /* Pods_PxChallenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PxChallenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B9FA922A2796A26DBBEB227 /* Pods-PxChallenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PxChallenge.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PxChallenge/Pods-PxChallenge.debug.xcconfig"; sourceTree = "<group>"; };
 		5D28C7391E9C4E0700FAEDCB /* PxChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PxChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		008019281EA661A7004FCB17 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				008019291EA661E5004FCB17 /* ImageHelper.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		4419C04BC12644C91DF3A648 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +95,7 @@
 		5D28C73B1E9C4E0700FAEDCB /* PxChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				008019281EA661A7004FCB17 /* Utils */,
 				5D28C75C1E9FB02800FAEDCB /* Hero */,
 				5D28C7551E9C62D000FAEDCB /* ObjectMaps */,
 				5D28C73C1E9C4E0700FAEDCB /* AppDelegate.swift */,
@@ -254,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D28C75A1E9C62E000FAEDCB /* Photo.swift in Sources */,
+				0080192A1EA661E5004FCB17 /* ImageHelper.swift in Sources */,
 				5D28C7671E9FB09D00FAEDCB /* ImageViewController.swift in Sources */,
 				5D28C75B1E9C62E000FAEDCB /* PopularPage.swift in Sources */,
 				5D28C7571E9C62DA00FAEDCB /* PxAPI.swift in Sources */,
