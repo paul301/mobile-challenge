@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hQd-RH-ApO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hQd-RH-ApO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Image View Controller-->
         <scene sceneID="aEI-c7-RH3">
             <objects>
-                <collectionViewController id="hQd-RH-ApO" customClass="ImageViewController" customModule="HeroExamples" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="hQd-RH-ApO" customClass="ImageViewController" customModule="PxChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" id="nps-X3-Zm9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,13 +25,37 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="item" id="wmK-cM-Vwb" customClass="ScrollingImageCell" customModule="HeroExamples" customModuleProvider="target">
+                            <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="item" id="wmK-cM-Vwb" customClass="ScrollingImageCell" customModule="PxChallenge" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="217" height="196"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="217" height="196"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBU-gc-r6m">
+                                            <rect key="frame" x="18" y="160" width="68" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="likes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbm-Sw-SIo">
+                                            <rect key="frame" x="168.5" y="160" width="30.5" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </view>
+                                <constraints>
+                                    <constraint firstAttribute="bottomMargin" secondItem="GBU-gc-r6m" secondAttribute="bottom" constant="10" id="6uw-ll-WpM"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="dbm-Sw-SIo" secondAttribute="trailing" constant="10" id="8Ee-cm-qEg"/>
+                                    <constraint firstItem="GBU-gc-r6m" firstAttribute="leading" secondItem="wmK-cM-Vwb" secondAttribute="leadingMargin" constant="10" id="VC6-gW-TpM"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="dbm-Sw-SIo" secondAttribute="bottom" constant="10" id="tA9-p9-dR0"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="likes" destination="dbm-Sw-SIo" id="c8w-o0-CbO"/>
+                                    <outlet property="userName" destination="GBU-gc-r6m" id="EeV-vM-iE9"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>

@@ -89,6 +89,8 @@ extension ImageViewController {
         imageCell.imageView.heroModifiers = [.position(CGPoint(x:view.bounds.width/2, y:view.bounds.height+view.bounds.width/2)), .scale(0.6), .fade]
         imageCell.topInset = topLayoutGuide.length
         imageCell.imageView.isOpaque = true
+        imageCell.userName.text = photos[indexPath.row].name
+        imageCell.likes.text = "\(photos[indexPath.row].likes!) likes"
         return imageCell
     }
 }

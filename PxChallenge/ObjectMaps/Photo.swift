@@ -16,6 +16,7 @@ struct Photo: Mappable {
     var images: [Image]!
     var width: Int!
     var height: Int!
+    var likes: Int!
     
     
     // MARK: JSON
@@ -27,6 +28,7 @@ struct Photo: Mappable {
         images      <- map["images"]
         width       <- map["width"]
         height      <- map["height"]
+        likes       <- map["votes_count"]
     }
     
 }
