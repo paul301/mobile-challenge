@@ -27,7 +27,9 @@ import Moya_ObjectMapper
 import SDWebImage
 
 class ImageGalleryViewController: UIViewController {
+    
     @IBOutlet weak var collectionView: UICollectionView!
+    
     var photos : [Photo]?
     var disposeBag = DisposeBag()
     var photoSizes = [(photoSize:CGSize, photo:Photo)]()
@@ -53,13 +55,6 @@ class ImageGalleryViewController: UIViewController {
         collectionView.reloadData()
         collectionView.indicatorStyle = .white
     }
-
-    @IBAction func switchLayout(_ sender: Any) {
-        // just replace the root view controller with the same view controller
-        // animation is automatic! Holy
-        let next = (UIStoryboard(name: "ImageGallery", bundle: nil).instantiateViewController(withIdentifier: "imageGallery") as? ImageGalleryViewController)!
-        hero_replaceViewController(with: next)
-    }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         let newBounds = CGRect(x: 0, y: 0, width: size.width, height: size.height)
@@ -67,7 +62,6 @@ class ImageGalleryViewController: UIViewController {
             //Landscape
             photoSizes = ImageHelper.photoSizes(photos: photos!, viewBounds: newBounds)
             collectionView.reloadData()
-            
         }
         else {
             //Portrait
@@ -76,6 +70,7 @@ class ImageGalleryViewController: UIViewController {
         }
     }
 }
+
 
 extension ImageGalleryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -106,32 +101,25 @@ extension ImageGalleryViewController: UICollectionViewDataSource {
     }
 }
 
+
 extension ImageGalleryViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return photoSizes[indexPath.row].photoSize
     }
-    
 }
 
+
 extension ImageGalleryViewController: HeroViewControllerDelegate {
+    
     func heroWillStartAnimatingTo(viewController: UIViewController) {
-        if (viewController as? ImageGalleryViewController) != nil {
-            collectionView.heroModifiers = [.cascade(delta:0.015, direction:.bottomToTop, delayMatchedViews:true)]
-        } else if (viewController as? ImageViewController) != nil {
-            let cell = collectionView.cellForItem(at: collectionView.indexPathsForSelectedItems!.first!)!
-            collectionView.heroModifiers = [.cascade(delta: 0.015, direction: .radial(center: cell.center), delayMatchedViews: true)]
-        } else {
-            collectionView.heroModifiers = [.cascade(delta:0.015)]
-        }
+        let cell = collectionView.cellForItem(at: collectionView.indexPathsForSelectedItems!.first!)!
+        collectionView.heroModifiers = [.cascade(delta: 0.008, direction: .radial(center: cell.center), delayMatchedViews: true)]
     }
+    
     func heroWillStartAnimatingFrom(viewController: UIViewController) {
         view.heroModifiers = nil
-        if (viewController as? ImageGalleryViewController) != nil {
-            collectionView.heroModifiers = [.cascade(delta:0.015), .delay(0.25)]
-        } else {
-            collectionView.heroModifiers = [.cascade(delta:0.015)]
-        }
+        collectionView.heroModifiers = [.cascade(delta:0.015)]
         if let vc = viewController as? ImageViewController,
             let originalCellIndex = vc.selectedIndex,
             let currentCellIndex = vc.collectionView?.indexPathsForVisibleItems[0],
