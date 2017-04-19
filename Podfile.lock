@@ -22,12 +22,14 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - UIScrollView-InfiniteScroll (1.0.1)
 
 DEPENDENCIES:
   - Hero (~> 0.3)
   - Moya-ObjectMapper/RxSwift
   - Moya/RxSwift
   - SDWebImage (~> 3.8)
+  - UIScrollView-InfiniteScroll (~> 1.0.0)
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
@@ -38,7 +40,8 @@ SPEC CHECKSUMS:
   Result: 2453a22e5c5b11c0c3a478736e82cd02f763b781
   RxSwift: 3789a1af753002a14edecdb698a2424624296a9c
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  UIScrollView-InfiniteScroll: a90df4ba4a7ca1926128ade34a850ddbdf74c564
 
-PODFILE CHECKSUM: 667ae3f011774615f24a37728f16c3251c7b0c1f
+PODFILE CHECKSUM: 4147064769c0617bd4e86d5c2845baa62a818eee
 
 COCOAPODS: 1.2.0

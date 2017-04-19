@@ -10,6 +10,7 @@ target 'PxChallenge' do
   pod 'Moya-ObjectMapper/RxSwift'
   pod 'SDWebImage', '~>3.8'
   pod 'Hero', '~> 0.3'
+  pod 'UIScrollView-InfiniteScroll', '~> 1.0.0'
 
 end
 
