@@ -25,6 +25,7 @@ import Hero
 import RxSwift
 import Moya_ObjectMapper
 import SDWebImage
+import UIScrollView_InfiniteScroll
 
 class ImageGalleryViewController: UIViewController {
     
@@ -33,11 +34,12 @@ class ImageGalleryViewController: UIViewController {
     var photos : [Photo]?
     var disposeBag = DisposeBag()
     var photoSizes = [(photoSize:CGSize, photo:Photo)]()
+    var page = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        pxProvider.request(.popularPhotos())
+        pxProvider.request(.popularPhotos(page: 1))
             .mapObject(PopularPage.self)
             .subscribe { [weak self] event in
                 switch event {
@@ -54,6 +56,36 @@ class ImageGalleryViewController: UIViewController {
         
         collectionView.reloadData()
         collectionView.indicatorStyle = .white
+        
+        // adding infinate scroll
+        collectionView.addInfiniteScroll { [weak self] (collectionView) -> Void in
+            self?.page += 1
+            pxProvider.request(.popularPhotos(page: (self?.page)!))
+                .mapObject(PopularPage.self)
+                .subscribe { [weak self] event in
+                    switch event {
+                    case .next(let page):
+                        collectionView.performBatchUpdates({ () -> Void in
+                            guard let count = self?.photos?.count else { return }
+                            
+                            self?.photos?.append(contentsOf: page.photos)
+                            self?.photoSizes = (ImageHelper.photoSizes(photos: (self?.photos)!, viewBounds: (self?.view.bounds)!))
+                            
+                            var indexPaths = [IndexPath]()
+                            for index in count..<count + page.photos.count {
+                                indexPaths.append( IndexPath(row: index , section: 0))
+                            }
+                            collectionView.insertItems(at: indexPaths)
+                        }, completion: { (finished) -> Void in
+                            collectionView.finishInfiniteScroll()
+                        });
+                    case .error(let error):
+                        print(error)
+                    default:
+                        break
+                    }
+                }.disposed(by: (self?.disposeBag)!)
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

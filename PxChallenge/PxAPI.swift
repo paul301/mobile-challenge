@@ -12,7 +12,7 @@ import Moya
 let pxProvider = RxMoyaProvider<FiveHundredPx>(plugins: [NetworkLoggerPlugin()])
 
 public enum FiveHundredPx {
-    case popularPhotos()
+    case popularPhotos(page: Int)
 }
 
 extension FiveHundredPx: TargetType {
@@ -20,7 +20,7 @@ extension FiveHundredPx: TargetType {
     
     public var path: String {
         switch self {
-        case .popularPhotos():
+        case .popularPhotos(_):
             return "/v1/photos"
         }
     }
@@ -34,9 +34,10 @@ extension FiveHundredPx: TargetType {
     
     public var parameters: [String: Any]? {
         switch self {
-        case .popularPhotos():
+        case .popularPhotos(let page):
             return ["consumer_key": "w9pJJi1BUapVhDWXZz8PXVF2ynjKEbyfy38waDGM",
                     "exclude":"nude",
+                    "page": "\(page)",
                     "image_size":"6,21"]
         }
     }
