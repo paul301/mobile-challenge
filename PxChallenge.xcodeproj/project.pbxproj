@@ -171,7 +171,6 @@
 				TargetAttributes = {
 					5D28C7381E9C4E0700FAEDCB = {
 						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = 7H6PDKU682;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -385,12 +384,13 @@
 			baseConfigurationReference = 3B9FA922A2796A26DBBEB227 /* Pods-PxChallenge.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7H6PDKU682;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PxChallenge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test.PxChallenge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -399,12 +399,13 @@
 			baseConfigurationReference = EC1942EEDC790CCDFBC55674 /* Pods-PxChallenge.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7H6PDKU682;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PxChallenge/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test.PxChallenge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
