@@ -1,24 +1,10 @@
-// The MIT License (MIT)
 //
-// Copyright (c) 2016 Luke Zhao <me@lkzhao.com>
+//  ImageGalleryViewController.swift
+//  PxChallenge
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Created by Paul Floussov on 2017-04-10.
+//  Copyright © 2017 Paul Floussov. All rights reserved.
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
 
 import UIKit
 import Hero
@@ -31,73 +17,68 @@ class ImageGalleryViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var photos : [Photo]?
+    var photos = [Photo]()
     var disposeBag = DisposeBag()
     var photoSizes = [(photoSize:CGSize, photo:Photo)]()
-    var page = 1
+    var page = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        pxProvider.request(.popularPhotos(page: 1))
+        page = 0
+        fetchNextPage() // initial fetch
+
+        collectionView.indicatorStyle = .white
+        
+        // adding infinate scroll
+        collectionView.addInfiniteScroll { [weak self] (collectionView) -> Void in
+            self?.fetchNextPage()
+        }
+    }
+
+    func fetchNextPage() {
+        page += 1
+        pxProvider.request(.popularPhotos(page: page))
             .mapObject(PopularPage.self)
             .subscribe { [weak self] event in
                 switch event {
                 case .next(let page):
-                    self?.photos = page.photos
-                    self?.photoSizes = (ImageHelper.photoSizes(photos: page.photos, viewBounds: (self?.view.bounds)!))
-                    self?.collectionView.reloadData()
+                    self?.collectionView.performBatchUpdates({ () -> Void in
+                        self?.addPhotosToView(newPhotos: page.photos)
+                    }, completion: { (finished) -> Void in
+                        self?.collectionView.finishInfiniteScroll()
+                    });
                 case .error(let error):
                     print(error)
                 default:
                     break
                 }
             }.disposed(by: disposeBag)
-        
-        collectionView.reloadData()
-        collectionView.indicatorStyle = .white
-        
-        // adding infinate scroll
-        collectionView.addInfiniteScroll { [weak self] (collectionView) -> Void in
-            self?.page += 1
-            pxProvider.request(.popularPhotos(page: (self?.page)!))
-                .mapObject(PopularPage.self)
-                .subscribe { [weak self] event in
-                    switch event {
-                    case .next(let page):
-                        collectionView.performBatchUpdates({ () -> Void in
-                            guard let count = self?.photos?.count else { return }
-                            
-                            self?.photos?.append(contentsOf: page.photos)
-                            self?.photoSizes = (ImageHelper.photoSizes(photos: (self?.photos)!, viewBounds: (self?.view.bounds)!))
-                            
-                            var indexPaths = [IndexPath]()
-                            for index in count..<count + page.photos.count {
-                                indexPaths.append( IndexPath(row: index , section: 0))
-                            }
-                            collectionView.insertItems(at: indexPaths)
-                        }, completion: { (finished) -> Void in
-                            collectionView.finishInfiniteScroll()
-                        });
-                    case .error(let error):
-                        print(error)
-                    default:
-                        break
-                    }
-                }.disposed(by: (self?.disposeBag)!)
-        }
     }
-    
+
+    func addPhotosToView(newPhotos: [Photo]) {
+        guard newPhotos.count > 0 else { return }
+        
+        let initalCount = photos.count
+        
+        photos.append(contentsOf: newPhotos)
+        photoSizes = (ImageHelper.photoSizes(photos: photos, viewBounds: self.view.bounds))
+        
+        var indexPaths = [IndexPath]()
+        for index in initalCount..<initalCount + newPhotos.count {
+            indexPaths.append( IndexPath(row: index , section: 0))
+        }
+        collectionView.insertItems(at: indexPaths)
+    }
+
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         let newBounds = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         if UIDevice.current.orientation.isLandscape {
-            //Landscape
-            photoSizes = ImageHelper.photoSizes(photos: photos!, viewBounds: newBounds)
+            photoSizes = ImageHelper.photoSizes(photos: photos, viewBounds: newBounds)
             collectionView.reloadData()
         }
         else {
-            //Portrait
-            photoSizes = ImageHelper.photoSizes(photos: photos!, viewBounds: newBounds)
+            photoSizes = ImageHelper.photoSizes(photos: photos, viewBounds: newBounds)
             collectionView.reloadData()
         }
     }
@@ -105,24 +86,23 @@ class ImageGalleryViewController: UIViewController {
 
 
 extension ImageGalleryViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = (viewController(forStoryboardName: "ImageViewer") as? ImageViewController)!
+        guard let navigationController = navigationController else { return }
+        
+        let vc = (UIStoryboard(name: "ImageViewer", bundle: nil).instantiateInitialViewController()! as? ImageViewController)!
         vc.selectedIndex = indexPath
         vc.photos = photos
-        if let navigationController = navigationController {
-            navigationController.pushViewController(vc, animated: true)
-        } else {
-            present(vc, animated: true, completion: nil)
-        }
+        navigationController.pushViewController(vc, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let photos = photos else { return 0 }
+        guard photos.count > 0 else { return 0 }
         return photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let photos = photos else { return (collectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as? ImageCell)! }
+        guard photos.count > 0 else { return (collectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as? ImageCell)! }
         
         let imageCell = (collectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as? ImageCell)!
         imageCell.imageView.sd_setImage(with: URL(string: photos[indexPath.row].images.first(where: {$0.size == 21})!.url))
@@ -131,6 +111,7 @@ extension ImageGalleryViewController: UICollectionViewDataSource {
         imageCell.imageView.isOpaque = true
         return imageCell
     }
+    
 }
 
 
@@ -139,6 +120,7 @@ extension ImageGalleryViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return photoSizes[indexPath.row].photoSize
     }
+    
 }
 
 
@@ -165,4 +147,5 @@ extension ImageGalleryViewController: HeroViewControllerDelegate {
             }
         }
     }
+    
 }
