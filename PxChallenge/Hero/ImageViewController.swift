@@ -83,9 +83,9 @@ extension ImageViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let photos = photos else { return (collectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as? ScrollingImageCell)! }
         
-        let imageCell = (collectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as? ScrollingImageCell)!
+        let imageCell = (collectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as? ScrollingImageCell)!        
         imageCell.imageView.sd_setImage(with: URL(string: photos[indexPath.row].images.first(where: {$0.size == 6})!.url))
-        imageCell.imageView.heroID = "image_\(indexPath.item)"
+        imageCell.imageView.heroID = "\(photos[indexPath.row].id)"
         imageCell.imageView.heroModifiers = [.position(CGPoint(x:view.bounds.width/2, y:view.bounds.height+view.bounds.width/2)), .scale(0.6), .fade]
         imageCell.topInset = topLayoutGuide.length
         imageCell.imageView.isOpaque = true

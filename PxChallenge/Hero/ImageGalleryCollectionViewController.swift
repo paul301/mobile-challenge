@@ -105,8 +105,8 @@ extension ImageGalleryViewController: UICollectionViewDataSource {
         guard photos.count > 0 else { return (collectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as? ImageCell)! }
         
         let imageCell = (collectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath) as? ImageCell)!
-        imageCell.imageView.sd_setImage(with: URL(string: photos[indexPath.row].images.first(where: {$0.size == 21})!.url))
-        imageCell.imageView.heroID = "image_\(indexPath.item)"
+        imageCell.imageView.sd_setImage(with: URL(string: photos[indexPath.row].images.first(where: {$0.size == 6})!.url))
+        imageCell.imageView.heroID = "\(photos[indexPath.row].id)"
         imageCell.imageView.heroModifiers = [.fade, .scale(0.8)]
         imageCell.imageView.isOpaque = true
         return imageCell
