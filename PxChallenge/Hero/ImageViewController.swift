@@ -91,6 +91,10 @@ extension ImageViewController {
         imageCell.imageView.isOpaque = true
         imageCell.userName.text = photos[indexPath.row].name
         imageCell.likes.text = "\(photos[indexPath.row].likes!) likes"
+        
+        //UI testing
+        imageCell.userName.accessibilityIdentifier = "UserNameLabel"
+        
         return imageCell
     }
 }

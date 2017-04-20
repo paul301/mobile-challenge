@@ -34,6 +34,9 @@ class ImageGalleryViewController: UIViewController {
         collectionView.addInfiniteScroll { [weak self] (collectionView) -> Void in
             self?.fetchNextPage()
         }
+        
+        // UI Testing
+        collectionView.accessibilityIdentifier = "PopularPageCollectionView"
     }
 
     func fetchNextPage() {
