@@ -11,8 +11,8 @@ import UIKit
 
 public class ImageHelper {
     
-    static func photoSizes(photos:[Photo], viewBounds: CGRect) -> [(photoSize:CGSize, photo:Photo)] {
-        var output = [(photoSize:CGSize, photo:Photo)]()
+    static func photoSizes(photos:[Photo], viewBounds: CGRect) -> [CGSize] {
+        var output = [CGSize]()
         
         var index = 0
         var currentPhotos = [Photo]()
@@ -22,7 +22,7 @@ public class ImageHelper {
             
             if (bestHeight <= Double(viewBounds.height / 4)) {
                 for photo in currentPhotos {
-                    output.append((CGSize(width:aspectRatio(photo: photo) * bestHeight ,height:bestHeight), photo))
+                    output.append(CGSize(width:aspectRatio(photo: photo) * bestHeight ,height:bestHeight))
                 }
                 currentPhotos = [Photo]()
             }
@@ -33,7 +33,7 @@ public class ImageHelper {
         for photo in currentPhotos {
             let generalHeight = Double(viewBounds.height / 5)
             
-            output.append((CGSize(width:aspectRatio(photo: photo) * generalHeight, height:generalHeight), photo))
+            output.append(CGSize(width:aspectRatio(photo: photo) * generalHeight, height:generalHeight))
         }
         
         return output

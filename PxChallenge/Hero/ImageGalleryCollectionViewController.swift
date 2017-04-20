@@ -19,7 +19,7 @@ class ImageGalleryViewController: UIViewController {
     
     var photos = [Photo]()
     var disposeBag = DisposeBag()
-    var photoSizes = [(photoSize:CGSize, photo:Photo)]()
+    var photoSizes = [CGSize]()
     var page = 0
 
     override func viewDidLoad() {
@@ -118,7 +118,7 @@ extension ImageGalleryViewController: UICollectionViewDataSource {
 extension ImageGalleryViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return photoSizes[indexPath.row].photoSize
+        return photoSizes[indexPath.row]
     }
     
 }
